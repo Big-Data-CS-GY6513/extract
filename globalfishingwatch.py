@@ -215,18 +215,19 @@ def getFishingEvents(month, year, country, collection):
             # print("starting lat: " + str(lat) + ", starting long: " + str(long) + ", month: " + str(month) + ", num events: " + str(getFishingEvents(month, lat, long)), file=f)
 # f.close()
 
-# Get fishing events for Jan 2021 for a certain EEZ
-# currentEEZ = "Dutch Exclusive Economic Zone"
-# currentEEZ = "Latvian Exclusive Economic Zone"
-# currentEEZ = "Estonian Exclusive Economic Zone"
-currentEEZ = "New Zealand Exclusive Economic Zone"
-currentYear = "2020"
+# Get fishing events for three small EEZs in OECD for 2010-2015
+eezs = ["Belgian Exclusive Economic Zone", "Latvian Exclusive Economic Zone", "Estonian Exclusive Economic Zone"]
+years = [2010, 2011, 2012, 2013, 2014, 2015]
 client = pymongo.MongoClient("mongodb+srv://theresatvan:UEi8751OX1jaT9lz@cluster0.6jfc5iw.mongodb.net/")
-print('here')
 mydatabase = client["gfw"]
-mycollection = mydatabase["gfw" + currentYear]
-for month in months:
-    getFishingEvents(month, currentYear, currentEEZ, mycollection)
+mycollection = mydatabase["gfw"]
+
+# mycollection.delete_many({})
+
+for eez in eezs:
+    for year in years:
+        for month in months:
+            getFishingEvents(month, year, eez, mycollection)
 
 client.close()
 
