@@ -4,8 +4,11 @@ import json
 
 # globalfishingwatch.py -- get fishing events from Global Fishing Watch API and insert into Mongo
 
+from dotenv import dotenv_values
+config = dotenv_values(".env")
+
 # Global Fishing Watch Key 
-apiKey = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImtpZEtleSJ9.eyJkYXRhIjp7Im5hbWUiOiI2NTEzIEJpZyBEYXRhIiwidXNlcklkIjoyNDg5NywiYXBwbGljYXRpb25OYW1lIjoiNjUxMyBCaWcgRGF0YSIsImlkIjo1NzIsInR5cGUiOiJ1c2VyLWFwcGxpY2F0aW9uIn0sImlhdCI6MTY4MTc3NDU4NSwiZXhwIjoxOTk3MTM0NTg1LCJhdWQiOiJnZnciLCJpc3MiOiJnZncifQ.Yq_OY9ZAGa2svMG8MCbxZbrDaCjkY3j5sjHVngxSdSUCeN4mDsILjvsb9oUrWdpC52kGDzE2HhvNkqbLkrt4H6LtI2SfijS6Brj1v8dpVqy7dQkshGlPClvGHUWnBlhTyCtd3nl5VpCbHMtDpfewI8AHWtqnqnrIGE0ElI3EmVM5VqonFuG_kIavpGraw47akDp-rwcTJSSZIr-QQeOme6u2fqCzGa5J08FH-MlrtqSeT8ewfBFD34qGHOJ3XdsjX_HgpIcsxCBcxnWIsP_YohHLixVnueRNct6tJpZ66xQYp3s8dNgZSIcr4nJNxxr_PVBonHBs5FWsRDdbXzsoNEluYPH9eGUzg4o6aHO9vqpDBwM0sngu03ewiRrLc010h0CAprve6s4nKKfw9qpTu3T6JIUwuDfzHeASVcA0a43PRsUEMuN5Tcn-5UAkUev5jzWUj4u6VAMBWVIdhvotJR8oNVmV2QXqYPo9833_zYIYL6JP9cr7wBRA_BJ4hFXk'
+apiKey = config["apiKey"]
 # gfwUrl = 'https://api.globalfishingwatch.org/v2/events'
 # Not sure if there's a better way to set this limit or to get around it
 gfwUrl = 'https://gateway.api.dev.globalfishingwatch.org/v2/events?offset=0&limit=999999999'
@@ -218,7 +221,7 @@ def getFishingEvents(month, year, country, collection):
 # Get fishing events for three small EEZs in OECD for 2010-2015
 eezs = ["Belgian Exclusive Economic Zone", "Latvian Exclusive Economic Zone", "Estonian Exclusive Economic Zone"]
 years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
-client = pymongo.MongoClient("mongodb+srv://theresatvan:UEi8751OX1jaT9lz@cluster0.6jfc5iw.mongodb.net/")
+client = pymongo.MongoClient("mongodb+srv://" + config["user"] + ":" + config["password"] + "@cluster0.6jfc5iw.mongodb.net/")
 mydatabase = client["gfw"]
 mycollection = mydatabase["gfw"]
 
