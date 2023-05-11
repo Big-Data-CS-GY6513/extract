@@ -217,7 +217,7 @@ def getFishingEvents(month, year, country, collection):
 
 # Get fishing events for three small EEZs in OECD for 2010-2015
 eezs = ["Belgian Exclusive Economic Zone", "Latvian Exclusive Economic Zone", "Estonian Exclusive Economic Zone"]
-years = [2010, 2011, 2012, 2013, 2014, 2015]
+years = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
 client = pymongo.MongoClient("mongodb+srv://theresatvan:UEi8751OX1jaT9lz@cluster0.6jfc5iw.mongodb.net/")
 mydatabase = client["gfw"]
 mycollection = mydatabase["gfw"]
